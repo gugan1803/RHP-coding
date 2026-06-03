@@ -1,0 +1,84 @@
+1. a-z
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    char str[1000001];
+    scanf("%s", str);
+
+    int flag = 0;
+
+    for (int i = 0; str[i]; i++) {
+        char ch = str[i];
+        flag = flag | (1 << (ch - 'a'));
+    }
+
+    printf((flag == (1 << 26) - 1) ? "Yes" : "No");
+
+    return 0;
+}
+
+
+2.A-Z
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    char str[1000001];
+    scanf("%s", str);
+
+    int flag = 0;
+
+    for (int i = 0; str[i]; i++) {
+        char ch = str[i];
+        flag = flag | (1 << (ch - 'A'));
+    }
+
+    printf((flag == (1 << 26) - 1) ? "Yes" : "No");
+
+    return 0;
+}
+
+3. a-z and A-Z
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    char str[1000001];
+    scanf("%s", str);
+
+    int flag = 0;
+
+    for (int i = 0; str[i]; i++) {
+        char ch = tolower(str[i]);
+
+        if (ch >= 'a' && ch <= 'z') {
+            flag |= (1 << (ch - 'a'));
+        }
+    }
+
+    printf((flag == (1 << 26) - 1) ? "Yes" : "No");
+
+    return 0;
+}
+
+4.Genarete all the combination for the given input string
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[20];
+    scanf("%s", str);
+
+    int n = strlen(str);
+
+    for (int i = 1; i < (1 << n); i++) {
+        for (int j = 0; j < n; j++) {
+            if (i & (1 << j))
+                printf("%c", str[j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
