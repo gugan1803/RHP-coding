@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class EasyIslands {
+    static int rows, cols;
+    static int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}}; // down, up, right, left
+
+    public static int numIslands(char[][] grid) {
+        rows = grid.length;
+        cols = grid[0].length;
+        int count = 0;
+
+        for(int i=0; i<rows; i++){
+            for(int j=0; j<cols; j++){
+                if(grid[i][j] == '1'){   // land found
+                    count++;
+                    dfs(grid, i, j);     // mark whole island
+                }
+            }
+        }
+        return count;
+    }
+
+    static void dfs(char[][] grid, int i, int j){
+        if(i<0 || j<0 || i>=rows || j>=cols || grid[i][j] == '0') return;
+        grid[i][j] = '0'; // mark visited
+        for(int[] d : dirs){
+            dfs(grid, i+d[0], j+d[1]);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int r = sc.nextInt();
+        int c = sc.nextInt();
+        char[][] grid = new char[r][c];
+
+        // Input each row as a string like "10101"
+        for(int i=0; i<r; i++){
+            String line = sc.next();
+            for(int j=0; j<c; j++){
+                grid[i][j] = line.charAt(j);
+            }
+        }
+        sc.close();
+
+        System.out.println("Number of islands: " + numIslands(grid));
+    }
+}
