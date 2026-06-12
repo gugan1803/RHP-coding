@@ -1,0 +1,37 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n; // number of bars
+    int a[1000]; // assume max size 1000 for simplicity
+
+    for(int i=0; i<n; i++) {
+        cin >> a[i]; // heights
+    }
+
+    int left = 0, right = n - 1;
+    int leftMax = 0, rightMax = 0;
+    int water = 0;
+
+    while(left < right) {
+        if(a[left] < a[right]) {
+            if(a[left] >= leftMax) {
+                leftMax = a[left]; // update left max
+            } else {
+                water += leftMax - a[left]; // trapped water
+            }
+            left++;
+        } else {
+            if(a[right] >= rightMax) {
+                rightMax = a[right]; // update right max
+            } else {
+                water += rightMax - a[right]; // trapped water
+            }
+            right--;
+        }
+    }
+
+    cout << "Trapped water: " << water << endl;
+    return 0;
+}

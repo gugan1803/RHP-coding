@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class LongestEqual01 {
+    public static int longestSubstring(String s) {
+        int n = s.length();
+        int[] firstIndex = new int[2*n + 1]; // range for sums [-n..n]
+        for(int i=0; i<firstIndex.length; i++) firstIndex[i] = -2; // init
+        
+        int sum = 0, maxLen = 0;
+        firstIndex[n] = -1; // sum=0 at index -1
+
+        for(int i=0; i<n; i++){
+            sum += (s.charAt(i) == '1') ? 1 : -1;
+            int idx = sum + n;
+            if(firstIndex[idx] != -2){
+                maxLen = Math.max(maxLen, i - firstIndex[idx]);
+            } else {
+                firstIndex[idx] = i;
+            }
+        }
+        return maxLen;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();  // input string of 0s and 1s
+        sc.close();
+
+        System.out.println("Longest substring length: " + longestSubstring(s));
+    }
+}
